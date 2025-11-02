@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # Gradio UI服务
+  gradio:
+    build: .
+    ports:
+      - "7860:7860"
+    env_file:
+      - .env
+    command: python ui/app_gradio.py
+    volumes:
+      - ./app:/app/app
+      - ./ui:/app/ui
+    restart: unless-stopped
+
+  # FastAPI服务
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8080
+    volumes:
+      - ./app:/app/app
+    restart: unless-stopped
+

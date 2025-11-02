@@ -1,0 +1,64 @@
+TTS:
+import requests
+
+url = "https://api.siliconflow.cn/v1/audio/speech"
+
+payload = {
+    "model": "IndexTeam/IndexTTS-2",
+    "input": "[S1]Hello, how are you today?[S2]I'm doing great, thanks for asking![S1]That's wonderful to hear "
+}
+headers = {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+
+print(response.json())
+
+示例响应：
+This response does not have an example.
+
+ASR:
+import requests
+
+url = "https://api.siliconflow.cn/v1/audio/transcriptions"
+
+files = { "file": "open('example-file', 'rb')" }
+payload = { "model": "FunAudioLLM/SenseVoiceSmall" }
+headers = {"Authorization": "Bearer <token>"}
+
+response = requests.post(url, data=payload, files=files, headers=headers)
+
+print(response.json())
+
+示例响应：{
+  "text": "<string>"
+}
+
+VLM：
+import requests
+
+url = "https://api.siliconflow.cn/v1/chat/completions"
+
+payload = {
+    "model": "Qwen/Qwen3-VL-32B-Instruct",
+    "messages": [
+        {
+            "role": "user",
+            "content": "What opportunities and challenges will the Chinese large model industry face in 2025?"
+        }
+    ]
+}
+headers = {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+
+print(response.json())
+
+
+注意：密钥通过.env文件配置，并且.env等敏感配置需要添加到.gitignore中
+密钥为：sk-gstxucodlxttwxphyuotuhfacwuquevtgpwahguqkqulicxd
